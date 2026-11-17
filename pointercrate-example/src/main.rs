@@ -87,9 +87,6 @@ impl GeolocationProvider for IpWhoIsGeolocationProvider {
         Some((data.country_code, data.region_code))
     }
 }
-        Some((data.country_code, data.region_code))
-    }
-}
 
 use rocket::fairing::{Fairing, Info, Kind};
 use rocket::Data;
