@@ -283,3 +283,4 @@ fn page_configuration() -> PageConfiguration {
         // Used for the HTML "keywords" meta tag
         .keywords("Your SEO keywords here")
 }
+}
