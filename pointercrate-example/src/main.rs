@@ -87,6 +87,37 @@ impl GeolocationProvider for IpWhoIsGeolocationProvider {
         Some((data.country_code, data.region_code))
     }
 }
+        Some((data.country_code, data.region_code))
+    }
+}
+
+use rocket::fairing::{Fairing, Info, Kind};
+use rocket::Data;
+
+struct TrailingSlashFairing;
+
+#[async_trait]
+impl Fairing for TrailingSlashFairing {
+    fn info(&self) -> Info {
+        Info {
+            name: "Append Trailing Slash",
+            kind: Kind::Request,
+        }
+    }
+
+    async fn on_request(&self, request: &mut Request<'_>, _: &mut Data<'_>) {
+        let path = request.uri().path().as_str();
+        if !path.ends_with('/') && !path.contains('.') && !path.starts_with("/api/") {
+            let new_path = format!("{}/", path);
+            if let Ok(new_uri) = rocket::http::uri::Origin::parse_owned(new_path) {
+                request.set_uri(new_uri);
+            }
+        }
+    }
+}
+
+#[rocket::launch]
+async fn rocket() -> _ {
 
 #[rocket::launch]
 async fn rocket() -> _ {
@@ -176,7 +207,7 @@ async fn rocket() -> _ {
     // production environment, you will not want rocket to be responsible for this
     // and instead use a web server such as nginx as a reverse proxy to serve your
     // static files.
-
+let rocket = rocket.attach(TrailingSlashFairing);
     rocket
         .mount("/static/core", FileServer::new("pointercrate-core-pages/static"))
         .mount("/static/demonlist", FileServer::new("pointercrate-demonlist-pages/static"))
