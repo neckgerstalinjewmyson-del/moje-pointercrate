@@ -22,10 +22,15 @@ header nav + * {
 }
 
 header nav .nav-icon {
-  font-size: 150%;
-  padding: 5px 20px;
-  display: flex;
-  align-items: center;
+    font-size: 150%;
+    padding: 5px 20px;
+    display: flex;
+    align-items: center;
+}
+
+header nav .nav-icon img {
+    height: 45px;
+    width: auto;
 }
 
 header nav .nav-item {
