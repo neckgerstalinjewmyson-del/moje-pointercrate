@@ -115,9 +115,6 @@ impl Fairing for TrailingSlashFairing {
 
 #[rocket::launch]
 async fn rocket() -> _ {
-
-#[rocket::launch]
-async fn rocket() -> _ {
     // Load the configuration from your .env file
     dotenv::dotenv().unwrap();
 
@@ -282,5 +279,4 @@ fn page_configuration() -> PageConfiguration {
         .author("your name")
         // Used for the HTML "keywords" meta tag
         .keywords("Your SEO keywords here")
-}
 }
