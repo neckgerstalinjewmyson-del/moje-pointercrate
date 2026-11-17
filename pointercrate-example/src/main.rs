@@ -104,7 +104,7 @@ impl Fairing for TrailingSlashFairing {
 
     async fn on_request(&self, request: &mut Request<'_>, _: &mut Data<'_>) {
         let path = request.uri().path().as_str();
-        if !path.ends_with('/') && !path.contains('.') && !path.starts_with("/api/") {
+	if request.method() == rocket::http::Method::Get && !path.ends_with('/') && !path.contains('.') && !path.starts_with("/api/") {
             let new_path = format!("{}/", path);
             if let Ok(new_uri) = rocket::http::uri::Origin::parse_owned(new_path) {
                 request.set_uri(new_uri);
@@ -273,7 +273,7 @@ fn page_configuration() -> PageConfiguration {
     // Some links to social media, for example your twitter
     .with_link("https://twitter.com/stadust1971", tr("footer-tweet.developer"));
 
-    // Stitching it all together into a page configuration
+    // Stitching it all together into a page configurationif
     PageConfiguration::new("<your website name here>", nav_bar, footer)
         // Used for the HTML "author" meta tag
         .author("your name")
