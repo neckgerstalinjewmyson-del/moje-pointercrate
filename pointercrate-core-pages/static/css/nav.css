@@ -23,13 +23,13 @@ header nav + * {
 
 header nav .nav-icon {
     font-size: 150%;
-    padding: 10px 40px;
+    padding: 8px 30px;
     display: flex;
     align-items: center;
 }
 
 header nav .nav-icon img {
-    height: 80px !important;
+    height: 60px !important;
     width: auto !important;
     max-height: none !important;
 }
